@@ -14,7 +14,7 @@ public class LibroDAO {
     // consulta para obtener un libro en especifico
     private String sqlObtenerLibro = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, l.autor, l.paginas, l.editorial, l.isbn, l.lanzamiento FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN libro AS l ON l.codigo = m.codigo WHERE m.codigo = ?";
     // consulta para obtener los libros
-    private String sqlObtenerLibros = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, m.fecha l.autor, l.paginas, l.editorial, l.isbn, l.lanzamiento FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN libro AS l ON l.codigo = m.codigo ORDER BY fecha DESC";
+    private String sqlObtenerLibros = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, m.fecha l.autor, l.paginas, l.editorial, l.isbn, l.lanzamiento FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN libro AS l ON l.codigo = m.codigo ORDER BY m.fecha DESC";
     // consulta editar libro
     private String sqlEditarMaterial = "UPDATE material SET titulo = ?, unidades = ? WHERE codigo = ?";
     private String sqlEditarLibro = "UPDATE libro SET autor = ?, paginas = ?, editorial = ?, isbn = ?, lanzamiento = ? WHERE codigo = ?";

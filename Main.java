@@ -1,25 +1,40 @@
-
 public class Main {
     public static void main(String[] args) {
-        LibroDAO dao = new LibroDAO();
+        // Instancia del DAO y del generador de código
+        RevistaDAO dao = new RevistaDAO();
+        GeneradorCodigoMediateca codigo = new GeneradorCodigoMediateca();
 
-        // Obtener el libro existente
-        Libro libro = dao.obtenerLibro("LIB00001");
+        // Generar código automático
+        String code = codigo.nuevoCodigo("REVISTA");
 
-        // Modificar sus valores usando mis setters
-        libro.setTitulo("Programación Orientada a Objetos en Java");
-        libro.setAutor("Douglas De León");
-        libro.setEditorial("Editorial Multimarcas");
-        libro.setPaginas(520);
-        libro.setUnidades(10);
-        libro.setLanzamiento(2025);
+        // 1. INSERTAR UNA REVISTA
+        Revista nuevaRevista = new Revista(
+            code,               // codigo
+            "Ciencia Hoy",      // titulo
+            "REVISTA",          // tipo
+            "Editorial Alfa",   // editorial
+            "Mensual",          // periodicidad
+            "2025-10-27",       // fecha (formato correcto)
+            5                   // unidades
+        );
 
-        // Guardar los cambios en la base de datos
-        dao.editarLibro(libro);
+        dao.ingresarRevista(nuevaRevista);
+        System.out.println("Revista insertada correctamente.");
 
-        // Comprobar resultado
-        Libro actualizado = dao.obtenerLibro("LIB00001");
-        System.out.println(actualizado.getTitulo());
+        // 2. OBTENER UNA REVISTA ESPECÍFICA
+        Revista revistaBuscada = dao.obtenerRevista(code);
+        if (revistaBuscada != null) {
+            System.out.println("Revista encontrada:");
+            System.out.println(revistaBuscada);
+        } else {
+            System.out.println("No se encontró la revista con ese código.");
+        }
+
+        // 3. OBTENER TODAS LAS REVISTAS
+        System.out.println("\nListado de todas las revistas:");
+        for (Revista r : dao.obtenerRevistas()) {
+            System.out.println(r);
+        }
+
     }
-
 }
