@@ -14,7 +14,7 @@ public class CdDAO {
     // consulta para obtener un revista en especifico
     private String sqlObtenerCd = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, c.artista, c.genero, c.duracion, c.canciones, m.fecha FROM material AS m INNER JOIN materialaudiovisual AS mau ON mau.codigo = m.codigo INNER JOIN cd AS c ON c.codigo = m.codigo WHERE m.codigo = ?";
     // consulta para obtener las revistas
-    private String sqlObtenerCds = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, c.artista, c.duracion, c.genero, m.fecha FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN cd AS c ON c.codigo = m.codigo ORDER BY m.fecha DESC";
+    private String sqlObtenerCds = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, c.artista, c.duracion, c.genero, m.fecha FROM material AS m INNER JOIN materialaudiovisual AS mau ON mau.codigo = m.codigo INNER JOIN cd AS c ON c.codigo = m.codigo ORDER BY m.fecha DESC";
     // consulta editar revista
     private String sqlEditarMaterial = "UPDATE material SET titulo = ?, unidades = ? WHERE codigo = ?";
     private String sqlEditarCd = "UPDATE cd SET artista = ?, genero = ?, duracion = ?, canciones = ? WHERE codigo = ?";

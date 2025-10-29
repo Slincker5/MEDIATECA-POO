@@ -8,13 +8,13 @@ public class LibroDAO {
     // inicializando la conexion a la db
     private Connection conn = ConexionDB.getConexion();
     // consultas para insert de un nuevo libro
-    private String sqlInsertMaterial = "INSERT INTO material (codigo, titulo, tipo, unidades) VALUES (?, ?, ?, ?)";
+    private String sqlInsertMaterial = "INSERT INTO material (codigo,  tipo, titulo, unidades) VALUES (?, ?, ?, ?)";
     private String sqlInsertMateriaEscrito = "INSERT INTO materialescrito (codigo) VALUES (?)";
     private String sqlInsertLibro = "INSERT INTO libro (codigo, autor, paginas, editorial, isbn, lanzamiento, unidades) VALUES (?, ?, ?, ?, ?, ?, ?)";
     // consulta para obtener un libro en especifico
     private String sqlObtenerLibro = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, l.autor, l.paginas, l.editorial, l.isbn, l.lanzamiento FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN libro AS l ON l.codigo = m.codigo WHERE m.codigo = ?";
     // consulta para obtener los libros
-    private String sqlObtenerLibros = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, m.fecha l.autor, l.paginas, l.editorial, l.isbn, l.lanzamiento FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN libro AS l ON l.codigo = m.codigo ORDER BY m.fecha DESC";
+    private String sqlObtenerLibros = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, m.fecha, l.autor, l.paginas, l.editorial, l.isbn, l.lanzamiento FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN libro AS l ON l.codigo = m.codigo ORDER BY m.fecha DESC";
     // consulta editar libro
     private String sqlEditarMaterial = "UPDATE material SET titulo = ?, unidades = ? WHERE codigo = ?";
     private String sqlEditarLibro = "UPDATE libro SET autor = ?, paginas = ?, editorial = ?, isbn = ?, lanzamiento = ? WHERE codigo = ?";
@@ -27,8 +27,8 @@ public class LibroDAO {
                 PreparedStatement insertMaterialEscrito = conn.prepareStatement(this.sqlInsertMateriaEscrito);
                 PreparedStatement insertLibro = conn.prepareStatement(this.sqlInsertLibro);) {
             insertMaterial.setString(1, libro.getCodigo());
-            insertMaterial.setString(2, libro.getAutor());
-            insertMaterial.setString(3, libro.getTipo());
+            insertMaterial.setString(2, libro.getTipo());
+            insertMaterial.setString(3, libro.getTitulo());
             insertMaterial.setInt(4, libro.getUnidades());
             insertMaterialEscrito.setString(1, libro.getCodigo());
             insertLibro.setString(1, libro.getCodigo());

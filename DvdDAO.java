@@ -14,7 +14,7 @@ public class DvdDAO {
     // consulta para obtener un revista en especifico
     private String sqlObtenerDvd = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, d.director, d.duracion, d.genero, m.fecha FROM material AS m INNER JOIN materialaudiovisual AS mau ON mau.codigo = m.codigo INNER JOIN dvd AS d ON d.codigo = m.codigo WHERE m.codigo = ?";
     // consulta para obtener las revistas
-    private String sqlObtenerDvds = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, m.fecha, d.artista, d.duracion, d.genero FROM material AS m INNER JOIN materialescrito AS mau ON mau.codigo = m.codigo INNER JOIN dvd AS d ON d.codigo = m.codigo ORDER BY m.fecha DESC";
+    private String sqlObtenerDvds = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, m.fecha, d.director, d.duracion, d.genero FROM material AS m INNER JOIN materialaudiovisual AS mau ON mau.codigo = m.codigo INNER JOIN dvd AS d ON d.codigo = m.codigo ORDER BY m.fecha DESC";
     // consulta editar revista
     private String sqlEditarMaterial = "UPDATE material SET titulo = ?, unidades = ? WHERE codigo = ?";
     private String sqlEditarDvd = "UPDATE dvd SET director = ?, duracion = ?, genero = ? WHERE codigo = ?";
