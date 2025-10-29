@@ -10,11 +10,11 @@ public class GeneradorCodigoMediateca {
     private static String sql = "SELECT codigo FROM material WHERE tipo = ? ORDER BY fecha DESC LIMIT 1";
 
     public Integer obtenerCodigo(String tipo) {
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, tipo);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    String codigoCompleto = rs.getString("codigo");
+        try (PreparedStatement obtenerUltimoCodigo = conn.prepareStatement(sql)) {
+            obtenerUltimoCodigo.setString(1, tipo);
+            try (ResultSet res = obtenerUltimoCodigo.executeQuery()) {
+                if (res.next()) {
+                    String codigoCompleto = res.getString("codigo");
                     Integer parteNumerica = Integer.parseInt(codigoCompleto.substring(3));
 
                     return parteNumerica;

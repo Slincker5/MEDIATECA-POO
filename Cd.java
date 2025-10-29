@@ -1,16 +1,17 @@
-import java.time.LocalTime;
+import java.sql.Time;
+
 
 public class Cd extends MaterialAudioVisual{
     protected String artista;
     protected String genero;
-    protected LocalTime duracion;
+    protected Time duracion;
     protected Integer canciones;
 
     Cd(String codigo, String titulo, String artista, String genero, String duracion, Integer canciones, String tipo, Integer unidades){
         super(codigo, titulo, tipo, unidades);
         this.artista = artista;
         this.genero = genero;
-        this.duracion = LocalTime.parse(duracion);
+        this.duracion = Time.valueOf(duracion);
         this.canciones = canciones;
     }
 
@@ -23,7 +24,7 @@ public class Cd extends MaterialAudioVisual{
         return this.genero;
     }
 
-    public LocalTime getDuracion(){
+    public Time getDuracion(){
         return this.duracion;
     }
 
@@ -41,11 +42,11 @@ public class Cd extends MaterialAudioVisual{
     }
 
     public void setDuracion(String duracion){
-        this.duracion = LocalTime.parse(duracion);
+        this.duracion = Time.valueOf(duracion);
     }
 
     public void setCanciones(Integer canciones){
         this.canciones = canciones;
     }
-    
+
 }

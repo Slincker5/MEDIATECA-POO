@@ -50,7 +50,7 @@ public class LibroDAO {
 
     public Libro obtenerLibro(String codigo) {
         Libro libro = null;
-        try (PreparedStatement obtenerLibro = conn.prepareStatement(sqlObtenerLibro)) {
+        try (PreparedStatement obtenerLibro = conn.prepareStatement(this.sqlObtenerLibro)) {
             obtenerLibro.setString(1, codigo);
             try (ResultSet res = obtenerLibro.executeQuery()) {
                 if (res.next()) {
@@ -67,7 +67,7 @@ public class LibroDAO {
 
     public ArrayList<Libro> obtenerLibros() {
         ArrayList<Libro> libro = new ArrayList<Libro>();
-        try (PreparedStatement obtenerLibro = conn.prepareStatement(sqlObtenerLibros)) {
+        try (PreparedStatement obtenerLibro = conn.prepareStatement(this.sqlObtenerLibros)) {
             try (ResultSet res = obtenerLibro.executeQuery()) {
                 while (res.next()) {
                     libro.add(new Libro(res.getString("codigo"), res.getString("titulo"), res.getString("autor"),
@@ -82,8 +82,8 @@ public class LibroDAO {
     }
 
     public void editarLibro(Libro libro) {
-        try (PreparedStatement editarMaterial = conn.prepareStatement(sqlEditarMaterial);
-                PreparedStatement editarLibro = conn.prepareStatement(sqlEditarLibro);) {
+        try (PreparedStatement editarMaterial = conn.prepareStatement(this.sqlEditarMaterial);
+                PreparedStatement editarLibro = conn.prepareStatement(this.sqlEditarLibro);) {
                     editarMaterial.setString(1, libro.getTitulo());
                     editarMaterial.setInt(2, libro.getUnidades());
                     editarMaterial.setString(3, libro.getCodigo());

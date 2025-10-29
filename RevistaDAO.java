@@ -47,7 +47,7 @@ public class RevistaDAO {
 
     public Revista obtenerRevista(String codigo) {
         Revista revista = null;
-        try (PreparedStatement obtenerRevista = conn.prepareStatement(sqlObtenerRevista)) {
+        try (PreparedStatement obtenerRevista = conn.prepareStatement(this.sqlObtenerRevista)) {
             obtenerRevista.setString(1, codigo);
             try (ResultSet res = obtenerRevista.executeQuery()) {
                 if (res.next()) {
@@ -64,7 +64,7 @@ public class RevistaDAO {
 
     public ArrayList<Revista> obtenerRevistas() {
         ArrayList<Revista> revista = new ArrayList<Revista>();
-        try (PreparedStatement obtenerRevista = conn.prepareStatement(sqlObtenerRevistas)) {
+        try (PreparedStatement obtenerRevista = conn.prepareStatement(this.sqlObtenerRevistas)) {
             try (ResultSet res = obtenerRevista.executeQuery()) {
                 while (res.next()) {
                     revista.add(new Revista(res.getString("codigo"), res.getString("titulo"),
@@ -79,8 +79,8 @@ public class RevistaDAO {
     }
 
     public void editarRevista(Revista revista) {
-        try (PreparedStatement editarMaterial = conn.prepareStatement(sqlEditarMaterial);
-                PreparedStatement editarRevista = conn.prepareStatement(sqlEditarRevista);) {
+        try (PreparedStatement editarMaterial = conn.prepareStatement(this.sqlEditarMaterial);
+                PreparedStatement editarRevista = conn.prepareStatement(this.sqlEditarRevista);) {
                     editarMaterial.setString(1, revista.getTitulo());
                     editarMaterial.setInt(2, revista.getUnidades());
                     editarMaterial.setString(3, revista.getCodigo());
