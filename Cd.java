@@ -7,7 +7,7 @@ public class Cd extends MaterialAudioVisual{
     protected Time duracion;
     protected Integer canciones;
 
-    Cd(String codigo, String titulo, String artista, String genero, String duracion, Integer canciones, String tipo, Integer unidades){
+    public Cd(String codigo, String titulo, String artista, String genero, String duracion, Integer canciones, String tipo, Integer unidades){
         super(codigo, titulo, tipo, unidades);
         this.artista = artista;
         this.genero = genero;
