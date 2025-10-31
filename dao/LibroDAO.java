@@ -63,6 +63,7 @@ public class LibroDAO {
                 }
             }
         } catch (Exception e) {
+            System.out.println("❌ Error al editar la revista: " + e.getMessage());
             e.printStackTrace();
         }
         return libro;
@@ -100,7 +101,8 @@ public class LibroDAO {
                     editarMaterial.executeUpdate();
                     editarLibro.executeUpdate();
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("❌ Error al editar la revista: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

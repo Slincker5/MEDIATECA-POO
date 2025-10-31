@@ -12,7 +12,6 @@ public class VistaMain extends JPanel {
     private JButton btnLibro = new JButton("Libros");
     private JButton btnCd = new JButton("CDs");
     private JButton btnDvs = new JButton("DVDs");
-    private JButton btnAgregarMaterial = new JButton("Agregar material");
 
     // Jpanels o divs para mi
     private JPanel divTitulo = new JPanel();
@@ -38,13 +37,11 @@ public class VistaMain extends JPanel {
         divMenu.add(btnLibro);
         divMenu.add(btnCd);
         divMenu.add(btnDvs);
-        divMenu.add(btnAgregarMaterial);
         this.estilizarBoton(btnInicio);
         this.estilizarBoton(btnRevista);
         this.estilizarBoton(btnLibro);
         this.estilizarBoton(btnCd);
         this.estilizarBoton(btnDvs);
-        this.estilizarBoton(btnAgregarMaterial);
         add(divMenu);
 
         // ===== Contenido dinámico =====
@@ -65,6 +62,20 @@ public class VistaMain extends JPanel {
             VistaRevista revista = new VistaRevista();
             contenidoDinamico.removeAll();
             contenidoDinamico.add(revista, BorderLayout.CENTER);
+            contenidoDinamico.revalidate();
+            contenidoDinamico.repaint();
+        });
+        btnLibro.addActionListener(e -> {
+            VistaLibro libro = new VistaLibro();
+            contenidoDinamico.removeAll();
+            contenidoDinamico.add(libro, BorderLayout.CENTER);
+            contenidoDinamico.revalidate();
+            contenidoDinamico.repaint();
+        });
+        btnCd.addActionListener(e -> {
+            VistaCd cd = new VistaCd();
+            contenidoDinamico.removeAll();
+            contenidoDinamico.add(cd, BorderLayout.CENTER);
             contenidoDinamico.revalidate();
             contenidoDinamico.repaint();
         });
