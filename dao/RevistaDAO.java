@@ -1,4 +1,5 @@
 package dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,9 +16,10 @@ public class RevistaDAO {
     private String sqlInsertMateriaEscrito = "INSERT INTO materialescrito (codigo) VALUES (?)";
     private String sqlInsertRevista = "INSERT INTO revista (codigo, editorial, periodicidad, fecha) VALUES (?, ?, ?, ?)";
     // consulta para obtener un revista en especifico
-    private String sqlObtenerRevista = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, r.editorial, r.periodicidad, r.fecha FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN revista AS r ON r.codigo = m.codigo WHERE m.codigo = ?";
+    private String sqlObtenerRevista = "SELECT m.codigo, m.titulo, r.editorial, r.periodicidad, r.fecha, m.tipo, m.unidades FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN revista AS r ON r.codigo = m.codigo WHERE m.codigo = ?";
+
     // consulta para obtener las revistas
-    private String sqlObtenerRevistas = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, m.fecha, r.editorial, r.periodicidad, r.fecha FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN revista AS r ON r.codigo = m.codigo ORDER BY m.fecha DESC";
+    private String sqlObtenerRevistas = "SELECT m.codigo, m.titulo, m.tipo, m.unidades, m.fecha, r.editorial, r.periodicidad, r.fecha AS fechaRev FROM material AS m INNER JOIN materialescrito AS me ON me.codigo = m.codigo INNER JOIN revista AS r ON r.codigo = m.codigo ORDER BY m.fecha DESC";
     // consulta editar revista
     private String sqlEditarMaterial = "UPDATE material SET titulo = ?, unidades = ? WHERE codigo = ?";
     private String sqlEditarRevista = "UPDATE revista SET editorial = ?, periodicidad = ?, fecha = ? WHERE codigo = ?";
@@ -55,7 +57,7 @@ public class RevistaDAO {
             try (ResultSet res = obtenerRevista.executeQuery()) {
                 if (res.next()) {
                     revista = new Revista(res.getString("codigo"), res.getString("titulo"),
-                           res.getString("editorial"), res.getString("periodicidad"),
+                            res.getString("editorial"), res.getString("periodicidad"),
                             res.getString("fecha"), res.getString("tipo"), res.getInt("unidades"));
                 }
             }
@@ -72,7 +74,7 @@ public class RevistaDAO {
                 while (res.next()) {
                     revista.add(new Revista(res.getString("codigo"), res.getString("titulo"),
                             res.getString("editorial"), res.getString("periodicidad"),
-                            res.getString("fecha"), res.getString("tipo"), res.getInt("unidades")));
+                            res.getString("fechaRev"), res.getString("tipo"), res.getInt("unidades")));
                 }
             }
         } catch (Exception e) {
@@ -84,18 +86,19 @@ public class RevistaDAO {
     public void editarRevista(Revista revista) {
         try (PreparedStatement editarMaterial = conn.prepareStatement(this.sqlEditarMaterial);
                 PreparedStatement editarRevista = conn.prepareStatement(this.sqlEditarRevista);) {
-                    editarMaterial.setString(1, revista.getTitulo());
-                    editarMaterial.setInt(2, revista.getUnidades());
-                    editarMaterial.setString(3, revista.getCodigo());
-                    editarRevista.setString(1, revista.getEditorial());
-                    editarRevista.setString(2, revista.getPeriodicidad());
-                    editarRevista.setString(3, revista.getFecha());
-                    editarRevista.setString(4, revista.getCodigo());
+            editarMaterial.setString(1, revista.getTitulo());
+            editarMaterial.setInt(2, revista.getUnidades());
+            editarMaterial.setString(3, revista.getCodigo());
+            editarRevista.setString(1, revista.getEditorial());
+            editarRevista.setString(2, revista.getPeriodicidad());
+            editarRevista.setString(3, revista.getFecha());
+            editarRevista.setString(4, revista.getCodigo());
 
-                    editarMaterial.executeUpdate();
-                    editarRevista.executeUpdate();
+            editarMaterial.executeUpdate();
+            editarRevista.executeUpdate();
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("❌ Error al editar la revista: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

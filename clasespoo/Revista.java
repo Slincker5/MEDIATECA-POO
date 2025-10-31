@@ -4,7 +4,7 @@ public class Revista extends MateriaEscrito {
     protected String periodicidad;
     protected String fecha;
 
-    public Revista(String codigo, String titulo, String tipo, String editorial, String periodicidad, String fecha,
+    public Revista(String codigo, String titulo, String editorial, String periodicidad, String fecha, String tipo,
             Integer unidades) {
         super(codigo, titulo, tipo, unidades);
         this.editorial = editorial;

@@ -94,7 +94,7 @@ public class VistaInicio extends JPanel {
         ArrayList<Material> busquedaRealizada = new ArrayList<Material>();
 
         if (texto.isEmpty()) {
-            JOptionPane.showMessageDialog(null,"Ocurrió un error al guardar los datos.","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Ocurrió un error al guardar los datos.","Campo vacio",JOptionPane.ERROR_MESSAGE);
             busquedaRealizada = buscar.obtenerUtimoMaterial();
         } else {
             busquedaRealizada = buscar.buscador(texto);

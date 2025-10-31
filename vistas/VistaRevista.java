@@ -6,7 +6,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,21 +22,36 @@ import dao.RevistaDAO;
 
 public class VistaRevista extends JPanel {
     private JPanel divTitulo = new JPanel();
-    private JPanel mostrarElementos = new JPanel();
+    private JPanel divMain = new JPanel();
+    private JPanel divAcciones = new JPanel();
+
+    // compos que deseo obtener
+
+    private String codigo;
+    // elementos de los divs
+    private JButton btnAgregarRevista = new JButton("Agregar Revista");
+    private JButton btnEditarRevista = new JButton("Editar Revista");
+    private JButton btnEliminarRevista = new JButton("Eliminar Revista");
+
     private JLabel titulo = new JLabel("Revistas disponibles");
 
     public VistaRevista() {
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        divTitulo.setLayout(new FlowLayout(FlowLayout.CENTER));
-        divTitulo.setPreferredSize(new Dimension(700, 50));
+        divTitulo.setLayout(new BorderLayout());
+        divTitulo.setBorder(BorderFactory.createEmptyBorder(0, 10, 15, 10)); 
         titulo.setFont(new Font("Cambria", Font.BOLD, 16));
         titulo.setForeground(Color.BLACK);
-        divTitulo.add(titulo);
+        divTitulo.add(titulo, BorderLayout.WEST);
+        divTitulo.add(btnAgregarRevista, BorderLayout.EAST);
 
-        mostrarElementos.setLayout(new BorderLayout());
-        mostrarElementos.setPreferredSize(new Dimension(700, 300));
-        mostrarElementos.setBackground(Color.RED);
+        divMain.setLayout(new BorderLayout());
+        divMain.setPreferredSize(new Dimension(740, 300));
+        divMain.setBackground(Color.RED);
+
+        divAcciones.setLayout(new FlowLayout(FlowLayout.CENTER));
+        divAcciones.add(btnEditarRevista);
+        divAcciones.add(btnEliminarRevista);
 
         RevistaDAO busqueda = new RevistaDAO();
         ArrayList<Revista> obtenerRevista = busqueda.obtenerRevistas();
@@ -46,14 +65,14 @@ public class VistaRevista extends JPanel {
         };
 
         for (Revista m : obtenerRevista) {
-            modelo.addRow(new Object[]{
-                m.getCodigo(),
-                m.getTitulo(),
-                m.getEditorial(),
-                m.getPeriodicidad(),
-                m.getFecha(),
-                m.getTipo(),
-                m.getUnidades()
+            modelo.addRow(new Object[] {
+                    m.getCodigo(),
+                    m.getTitulo(),
+                    m.getEditorial(),
+                    m.getPeriodicidad(),
+                    m.getFecha(),
+                    m.getTipo(),
+                    m.getUnidades()
             });
         }
 
@@ -74,14 +93,46 @@ public class VistaRevista extends JPanel {
         JScrollPane tablaConScroll = new JScrollPane(tabla);
         tablaConScroll.getViewport().setBackground(Color.WHITE);
 
-        mostrarElementos.add(divTitulo, BorderLayout.NORTH);
-        mostrarElementos.add(tablaConScroll, BorderLayout.CENTER);
-        add(mostrarElementos);
+        divMain.add(divTitulo, BorderLayout.NORTH);
+        divMain.add(tablaConScroll, BorderLayout.CENTER);
+        add(divMain);
 
         tabla.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                System.out.println(tabla.getValueAt(tabla.getSelectedRow(), 0));
+                codigo = tabla.getValueAt(tabla.getSelectedRow(), 0).toString();
+                divMain.add(divAcciones, BorderLayout.SOUTH);
+                divMain.revalidate();
+                divMain.repaint();
             }
         });
+
+        // eventos de los botones del Jpanel acciones
+
+        btnEliminarRevista.addActionListener(e -> {
+            int respuesta = JOptionPane.showConfirmDialog(
+                    null,
+                    "¿Seguro que deseas eliminar esta revista?",
+                    "Confirmar acción",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                RevistaDAO eliminar = new RevistaDAO();
+                eliminar.eliminarRevista(codigo);
+                JOptionPane.showMessageDialog(null, "Se borró con éxito " + codigo);
+                divMain.removeAll();
+                divMain.add(new VistaRevista()); // o VistaInicio según el caso
+                divMain.revalidate();
+                divMain.repaint();
+            }
+        });
+
+        btnEditarRevista.addActionListener(e -> {
+                divMain.removeAll();
+                VistaEditarRevista editar = new VistaEditarRevista(codigo);
+                divMain.add(editar);
+                divMain.revalidate();
+                divMain.repaint();
+            });
+
     }
 }
