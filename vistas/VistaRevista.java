@@ -39,7 +39,7 @@ public class VistaRevista extends JPanel {
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         divTitulo.setLayout(new BorderLayout());
-        divTitulo.setBorder(BorderFactory.createEmptyBorder(0, 10, 15, 10)); 
+        divTitulo.setBorder(BorderFactory.createEmptyBorder(0, 10, 15, 10));
         titulo.setFont(new Font("Cambria", Font.BOLD, 16));
         titulo.setForeground(Color.BLACK);
         divTitulo.add(titulo, BorderLayout.WEST);
@@ -126,13 +126,21 @@ public class VistaRevista extends JPanel {
             }
         });
 
+        btnAgregarRevista.addActionListener(e -> {
+            divMain.removeAll();
+            VistaAgregarRevista agregar = new VistaAgregarRevista();
+            divMain.add(agregar);
+            divMain.revalidate();
+            divMain.repaint();
+        });
+
         btnEditarRevista.addActionListener(e -> {
-                divMain.removeAll();
-                VistaEditarRevista editar = new VistaEditarRevista(codigo);
-                divMain.add(editar);
-                divMain.revalidate();
-                divMain.repaint();
-            });
+            divMain.removeAll();
+            VistaEditarRevista editar = new VistaEditarRevista(codigo);
+            divMain.add(editar);
+            divMain.revalidate();
+            divMain.repaint();
+        });
 
     }
 }
