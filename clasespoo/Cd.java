@@ -1,3 +1,4 @@
+package clasespoo;
 import java.sql.Time;
 
 

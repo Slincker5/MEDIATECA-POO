@@ -1,3 +1,4 @@
+package clasespoo;
 public class Revista extends MateriaEscrito {
     protected String editorial;
     protected String periodicidad;

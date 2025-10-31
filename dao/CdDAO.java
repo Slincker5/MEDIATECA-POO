@@ -1,8 +1,11 @@
+package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import clasespoo.Cd;
 
 public class CdDAO {
     // inicializando la conexion a la db

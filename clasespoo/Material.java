@@ -1,9 +1,10 @@
+package clasespoo;
 public class Material {
     protected String titulo;
     protected final String tipo;
     protected Integer unidades;
 
-    Material(String titulo, String tipo, Integer unidades) {
+    public Material(String titulo, String tipo, Integer unidades) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.unidades = unidades;

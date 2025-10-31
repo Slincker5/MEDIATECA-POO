@@ -1,3 +1,4 @@
+package clasespoo;
 public class Libro extends MateriaEscrito {
     protected String autor;
     protected Integer paginas;
