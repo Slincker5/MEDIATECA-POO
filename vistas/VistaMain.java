@@ -79,6 +79,13 @@ public class VistaMain extends JPanel {
             contenidoDinamico.revalidate();
             contenidoDinamico.repaint();
         });
+        btnDvs.addActionListener(e -> {
+            VistaDvd dvd = new VistaDvd();
+            contenidoDinamico.removeAll();
+            contenidoDinamico.add(dvd, BorderLayout.CENTER);
+            contenidoDinamico.revalidate();
+            contenidoDinamico.repaint();
+        });
     }
 
     // funcion para quitar estilo por defecto a mis botones menu
