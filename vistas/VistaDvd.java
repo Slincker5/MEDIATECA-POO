@@ -128,7 +128,7 @@ public class VistaDvd extends JPanel {
 
         btnAgregarDvd.addActionListener(e -> {
             divMain.removeAll();
-            VistaAgregarLibro agregar = new VistaAgregarLibro();
+            VistaAgregarDvd agregar = new VistaAgregarDvd();
             divMain.add(agregar);
             divMain.revalidate();
             divMain.repaint();
@@ -136,7 +136,7 @@ public class VistaDvd extends JPanel {
 
         btnEditarDvd.addActionListener(e -> {
             divMain.removeAll();
-            VistaEditarLibro editar = new VistaEditarLibro(codigo);
+            VistaEditarDvd editar = new VistaEditarDvd(codigo);
             divMain.add(editar);
             divMain.revalidate();
             divMain.repaint();

@@ -14,7 +14,7 @@ public class VistaEditarCd extends JPanel {
     private JTextField inputDuracion = new JTextField(10);
     private JTextField inputCanciones = new JTextField(10);
     private JTextField inputUnidades = new JTextField(10);
-    private JButton btnGuardar = new JButton("Agregar nuevo CD");
+    private JButton btnGuardar = new JButton("Guardar Cambios");
     protected String codigo;
 
     public VistaEditarCd(String codigo) {
@@ -23,7 +23,7 @@ public class VistaEditarCd extends JPanel {
         setBackground(Color.WHITE);
 
         // ===== Título =====
-        JLabel titulo = new JLabel("Agregar CD");
+        JLabel titulo = new JLabel("Editar CD - " + codigo);
         titulo.setFont(new Font("Cambria", Font.BOLD, 16));
         JPanel divTitulo = new JPanel(new FlowLayout(FlowLayout.CENTER));
         divTitulo.setBackground(Color.WHITE);
@@ -71,12 +71,11 @@ public class VistaEditarCd extends JPanel {
         divFormulario.add(div5);
 
         // ===== Fila 4 =====
-
-        JPanel div7 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
-        div7.setBackground(Color.WHITE);
-        div7.add(new JLabel("Unidades:"));
-        div7.add(inputUnidades);
-        divFormulario.add(div7);
+        JPanel div6 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        div6.setBackground(Color.WHITE);
+        div6.add(new JLabel("Unidades:"));
+        div6.add(inputUnidades);
+        divFormulario.add(div6);
         add(divFormulario, BorderLayout.CENTER);
 
         // ===== Botón Guardar =====
