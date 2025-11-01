@@ -129,7 +129,7 @@ public class VistaCd extends JPanel {
 
         btnAgregarCd.addActionListener(e -> {
             divMain.removeAll();
-            VistaAgregarLibro agregar = new VistaAgregarLibro();
+            VistaAgregarCd agregar = new VistaAgregarCd();
             divMain.add(agregar);
             divMain.revalidate();
             divMain.repaint();
@@ -137,7 +137,7 @@ public class VistaCd extends JPanel {
 
         btnEditarCd.addActionListener(e -> {
             divMain.removeAll();
-            VistaEditarLibro editar = new VistaEditarLibro(codigo);
+            VistaEditarCd editar = new VistaEditarCd(codigo);
             divMain.add(editar);
             divMain.revalidate();
             divMain.repaint();
